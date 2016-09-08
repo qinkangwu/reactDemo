@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react</title>
+    <script src="bower_components/react/react-with-addons.js"></script>
+    <script src="bower_components/react/react-dom.js"></script>
+    <script src="http://cdn.bootcss.com/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/babel">
+    var EasyForm = React.createClass({
+        mixins : [
+                React.addons.LinkedStateMixin
+        ],
+        getInitialState : function(){
+            return {
+                message : 'React is awesome',
+                isReactAwesome : true
+            }
+        },
+        render : function(){
+            return (
+                    <div>
+                        <h1>我想说：{this.state.message}</h1>
+                        <h2>React是不是很好用：{this.state.isReactAwesome?'非常好用':'也就那样'}</h2>
+                        <input type="text" valueLink={this.linkState('message')} />
+                        <br />
+                        <input type="checkbox" checkedLink={this.linkState('isReactAwesome')} />
+                        <br />
+                    </div>
+            )
+        }
+    });
+
+    var subComp = React.createClass({
+       render : function(){
+           return (
+                   <div>
+                       <h3>这个是子组件</h3>
+                       <subSubComp />
+                   </div>
+           )
+       }
+    });
+
+
+    var subSubComp = React.createClass({
+        render : function(){
+            return (
+                    <div>
+                        <p>你想说什么?</p>
+                        <input type="text" />
+                        <p>true or false</p>
+                        <input type="checkbox"  />
+                    </div>
+            )
+        }
+    });
+    ReactDOM.render(<EasyForm/>,document.getElementById('app'))
+</script>
+</body>
+</html>

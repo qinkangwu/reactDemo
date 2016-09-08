@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react</title>
+    <script src="bower_components/react/react.js"></script>
+    <script src="bower_components/react/react-dom.js"></script>
+    <script src="http://cdn.bootcss.com/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/babel">
+    var FormApp = React.createClass({
+        getInitialState : function(){
+            return {
+                inputValue : 'input value',
+                selectValue : 'A',
+                radioValue : 'B',
+                textareaValue : 'some text here'
+
+            }
+        },
+        handleInput : function(e){
+            this.setState({
+                inputValue : e.target.value
+            })
+        },
+        handleSelect : function(e){
+            this.setState({
+                selectValue : e.target.value
+            })
+        },
+        handleTextArea : function(e){
+            this.setState({
+                textareaValue : e.target.value
+            })
+        },
+        handleSubmit : function(e){
+            e.preventDefault();
+            console.log('form submitting');
+            console.log(e);
+        },
+        render : function(){
+            return (
+                 <form onSubmit={this.handleSubmit}>
+                     <input type="text" value={this.state.inputValue} onChange={this.handleInput}/>
+                     <br />
+                     <select value={this.state.selectValue} onChange={this.handleSelect}>
+                         <option value="A">A</option>
+                         <option value="B">B</option>
+                         <option value="C">C</option>
+                         <option value="D">D</option>
+                         <option value="E">E</option>
+                         <option value="F">F</option>
+                         <option value="G">G</option>
+                     </select>
+                     <br />
+                     <p>
+                         <input type="radio" name="myRadio" defaultChecked  value="A"/>
+                         <input type="radio" name="myRadio"  value="B"/>
+                     </p>
+                     <p>
+                         <input type="checkbox" name="checkBoxes" defaultChecked  value="A"/>
+                         <input type="checkbox" name="checkBoxes"  value="B"/>
+                     </p>
+                     <p>
+                         <textarea value={this.state.textareaValue} onChange={this.handleTextArea}></textarea>
+                     </p>
+                     <button type="submit">提交</button>
+                 </form>
+            )
+        }
+    })
+
+    ReactDOM.render(
+            <FormApp />,
+            document.getElementById('app')
+    );
+</script>
+</body>
+</html>

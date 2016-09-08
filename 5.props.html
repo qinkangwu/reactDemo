@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react</title>
+    <script src="bower_components/react/react.js"></script>
+    <script src="bower_components/react/react-dom.js"></script>
+    <script src="http://cdn.bootcss.com/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/babel">
+    var MessageBox = React.createClass({
+        getInitialState : function(){
+            return {
+                isVisible : true,
+                subMessages : [
+                        '111111111111111111',
+                        '22222222222222222222',
+                        '33333333333333333333'
+                ]
+            }
+        },
+        render : function(){
+            var styleObj = {
+                display : this.state.isVisible? 'block':'none'
+            };
+            return (
+                    <div>
+                        <h1 style={styleObj}>{this.props.title}</h1>
+                        <SubMessage messages={this.state.subMessages} />
+                    </div>
+            )
+        }
+    });
+
+    var SubMessage = React.createClass({
+        propTypes : {
+          messages : React.PropTypes.array.isRequired
+        },
+        getDefaultProps : function(){
+            return {
+                messages : ['默认的字消息']
+            }
+        },
+        render : function(){
+            var msgs = [];
+            this.props.messages.forEach(function(item,index){
+               msgs.push(
+                       <p key={index}>码农说 : {item}</p>
+               );
+            });
+
+            return (<h3>{msgs}</h3>)
+        }
+    });
+
+    var Footer = React.createClass({
+        render : function(){
+            return (<small>底部小组件！！！</small>)
+        }
+    });
+
+
+    var titleMessage = '来自顶层props的问候！！！！';
+    ReactDOM.render(
+            <MessageBox title={titleMessage} />,
+            document.getElementById('app'),
+            function(){
+                console.log('渲染完成');
+            }
+    );
+</script>
+</body>
+</html>

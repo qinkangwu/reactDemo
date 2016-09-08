@@ -1,0 +1,20 @@
+{
+  "name": "kein",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "qinkangwu <18602182076@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/qinkangwu/reactDemo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

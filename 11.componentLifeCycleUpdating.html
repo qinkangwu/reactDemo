@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react</title>
+    <script src="bower_components/react/react.js"></script>
+    <script src="bower_components/react/react-dom.js"></script>
+    <script src="http://cdn.bootcss.com/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/babel">
+    var MessageBox = React.createClass({
+        getInitialState : function(){
+            return {
+                count : 0
+            }
+        },
+        /*getDefaultProps : function(){
+
+        },
+        componentWillMount : function(){
+
+        },
+        componentDidMount : function(){
+
+        },
+        componentWillUnmount : function(){
+
+        },*/
+        shouldComponentUpdate : function(nextProp,nextState){
+            console.log('shouldComponentUpdate');
+            return true;
+        },
+        componentWillUpdate : function(nextProp,nextState){
+            console.log('componentWillUpdate');
+        },
+        componentDidUpdate : function(){
+            console.log('componentDidUpdate');
+        },
+        killMyself : function(){
+            ReactDOM.unmountComponentAtNode( document.getElementById('app') )
+        },
+        doUpdate : function(){
+            this.setState({
+                count : this.state.count + 1
+            })
+        },
+        render : function(){
+            console.log('正在渲染')
+            return (
+                    <div ref='messageBox'>
+                        <h1>计数:{this.state.count}</h1>
+                        <button onClick={this.killMyself}>卸载这个组件</button>
+                        <button onClick={this.doUpdate}>手动更新一下组件（包括子组件）</button>
+                        <SubMessage count={this.state.count} />
+                    </div>
+            )
+        }
+    });
+
+    var SubMessage = React.createClass({
+        componentWillReceiveProps : function(nextProp){
+            console.log('子组件将要获得prop')
+        },
+        shouldComponentUpdate : function(nextProp,nextState){
+            if(nextProp.count > 5) return false;
+            return true;
+        },
+        render : function(){
+            return (<h3>{this.props.count}</h3>)
+        }
+    });
+
+    var Footer = React.createClass({
+        render : function(){
+            return (<small>底部小组件！！！</small>)
+        }
+    });
+    ReactDOM.render(
+            <MessageBox />,
+            document.getElementById('app'),
+            function(){
+                console.log('渲染完成');
+            }
+    );
+</script>
+</body>
+</html>
